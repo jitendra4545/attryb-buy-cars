@@ -5,11 +5,12 @@ const express=require('express')
 const { connection } = require('./config/db')
 const { UserRouter } = require('./controller/UserController')
 const { Authentication } = require('./middleware/Auth')
+const { DealerRouter } = require('./controller/DealersController')
 const app=express()
 app.use(cors())
 app.use(express.json())
 app.use("/user",UserRouter)
-
+app.use("/dealer",DealerRouter)
 
 app.get("/",(req,res)=>{
     res.send('hi there!')

@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const UserRouter = express.Router()
 
 
-
+// <--- Below code help to register the Dealers  --->
 
 UserRouter.post("/signup", async (req, res) => {
     const data = req.body
@@ -26,7 +26,7 @@ UserRouter.post("/signup", async (req, res) => {
     }
 })
 
-
+// <--- Below code help to Login the Dealers using email and password and after successfully login it generate a token  --->
 
 UserRouter.post("/login", async (req, res) => {
     const data = req.body

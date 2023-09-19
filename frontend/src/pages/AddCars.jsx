@@ -10,7 +10,8 @@ export const AddCars = () => {
     const [oem_id, setoem_id] = useState("")
     const [image, setimage] = useState("")
     const [title, settitle] = useState("")
-    const [desc, setdesc] = useState([])
+    const [desc, setdesc] = useState("")
+    const [Alldesc, setAlldesc] = useState([])
     const [price, setprice] = useState("")
     const [km, setkm] = useState("")
     const [major_scratch, setmajor_scratch] = useState("")
@@ -69,7 +70,7 @@ axios.post(`http://localhost:8456/dealer/add`,payload,{
         const formData=new FormData()
         formData.append("oem_id",oem_id)
         formData.append("title",title)
-        formData.append("desc",desc)
+        formData.append("desc",Alldesc)
         formData.append("price",price)
         formData.append("km",km)
         formData.append("major_scratch",major_scratch)
@@ -90,7 +91,13 @@ axios.post(`http://localhost:8456/dealer/add`,payload,{
         
     }
 
+    const AddDesc=()=>{
 
+        setAlldesc([...Alldesc,{desc}])
+        setdesc("")
+    }
+
+    console.log(Alldesc)
     return (
         <Box>
             <Navbar />
@@ -119,6 +126,7 @@ axios.post(`http://localhost:8456/dealer/add`,payload,{
                         <FormLabel >Description</FormLabel>
                         <Input type='text' onChange={(e) => setdesc(e.target.value)} />
                     </FormControl>
+                    <Button onClick={AddDesc}>Add Description</Button>
                     <FormControl>
                         <FormLabel >Price</FormLabel>
                         <Input type='number' onChange={(e) => setprice(e.target.value)} />

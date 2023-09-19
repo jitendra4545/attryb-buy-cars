@@ -9,14 +9,16 @@ import {
   InputLeftElement,
   chakra,
   Box,
-  
+
   Avatar,
   FormControl,
   FormHelperText,
   InputRightElement
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -25,7 +27,33 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowClick = () => setShowPassword(!showPassword);
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+ 
+const navigate=useNavigate()
 
+
+
+
+  const handleLogin=()=>{
+    const payload={
+      email,password
+    }
+    axios.post(`http://localhost:8456/user/login`,payload)
+    .then((res)=>{
+      console.log(res)
+      if(res.data?.msg=="User Successfully Login"){
+        alert("User registerd")
+        navigate("/")
+        localStorage.setItem("usertoken",JSON.stringify(res.data.token))
+      }else{
+        alert(res.data.err)
+      }
+    }).catch(err=>console.log(err))
+  }
+  
+  
+  
   return (
     <Flex
       flexDirection="column"
@@ -44,7 +72,7 @@ const Login = () => {
         <Avatar bg="teal.500" />
         <Heading color="teal.400">Welcome To Attryb</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
+         
             <Stack
               spacing={4}
               p="1rem"
@@ -57,7 +85,7 @@ const Login = () => {
                     pointerEvents="none"
                     children={<CFaUserAlt color="gray.300" />}
                   />
-                  <Input type="email" placeholder="email address" />
+                  <Input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="email address" />
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -70,6 +98,7 @@ const Login = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
+                    onChange={(e)=>setPassword(e.target.value)}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -87,11 +116,12 @@ const Login = () => {
                 variant="solid"
                 colorScheme="teal"
                 width="full"
+                onClick={handleLogin}
               >
                 Login
               </Button>
             </Stack>
-          </form>
+          
         </Box>
       </Stack>
       <Box>

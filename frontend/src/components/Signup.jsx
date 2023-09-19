@@ -19,20 +19,42 @@ import {
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import {MdDriveFileRenameOutline} from 'react-icons/md'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
+import axios from 'axios'
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const [Name, setName] = useState("")
-const [Email, setEmail] = useState("")
-const [Password, setPassword] = useState("")
+  const [name, setName] = useState("")
+const [email, setEmail] = useState("")
+const [password, setPassword] = useState("")
 
-console.log(Name,Email,Password)
+
+const navigate=useNavigate()
+const handleReg=()=>{
+
+  const payload={
+    name,email,password
+  }
+  axios.post(`http://localhost:8456/user/signup`,payload)
+  .then((res)=>{
+    console.log(res)
+    if(res.data?.msg=="User Register Successfully"){
+      alert("User registerd")
+      navigate("/login")
+    }else{
+      alert(res.data.err)
+    }
+  }).catch(err=>console.log(err))
+  
+}
+
+
+
 
 
   return (
@@ -55,7 +77,7 @@ console.log(Name,Email,Password)
         <Heading color="teal.400">Welcome To Attryb</Heading>
         
         <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
+          {/* <form > */}
             <Stack
               spacing={4}
               p="1rem"
@@ -108,11 +130,12 @@ console.log(Name,Email,Password)
                 variant="solid"
                 colorScheme="teal"
                 width="full"
+              onClick={handleReg}
               >
-                Login
+               Register
               </Button>
             </Stack>
-          </form>
+          {/* </form> */}
         </Box>
       </Stack>
       

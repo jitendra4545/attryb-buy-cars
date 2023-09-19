@@ -36,14 +36,21 @@ DealerRouter.post("/add", upload.single('image'), Authentication, async (req, re
     console.log("hgghghhg",req.file,"body",req)
 
     try {
-        cloudinary.uploader.upload(req.file.path, async (err, result) => {
-            console.log("ghghfg",result)
-            if (result) {
-                let newdata = new DealearsModel({ image: result.url, registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title, user_id: id,oem_id })
-                await newdata.save()
-                res.send({ "msg": "Car Added Successfully" })
-            }
-        })
+
+        if(registration_place==""||prev_buyer==""||accident==""||original_paint==""||major_scratch==""||km==""||price==""||title==""||oem_id==""){
+            alert("fill all the fields")
+        }else{
+            cloudinary.uploader.upload(req.file.path, async (err, result) => {
+                console.log("ghghfg",result)
+                if (result) {
+                    let newdata = new DealearsModel({ image: result.url, registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title, user_id: id,oem_id })
+                    await newdata.save()
+                    res.send({ "msg": "Car Added Successfully" })
+                }
+            })
+        }
+
+        
 
 
     } catch (err) {
@@ -113,7 +120,7 @@ DealerRouter.get("/", async (req, res) => {
 
 
 
-DealerRouter.patch("/:id", async (req, res) => {
+DealerRouter.patch("/:id", Authentication,async (req, res) => {
       const id=req.params.id
       
       let data=req.body
@@ -129,7 +136,7 @@ DealerRouter.patch("/:id", async (req, res) => {
 
 
 
-DealerRouter.delete("/:id",async(req,res)=>{
+DealerRouter.delete("/:id",Authentication,async(req,res)=>{
     const id=req.params.id
     try{
         await DealearsModel.findOneAndDelete({_id:id})

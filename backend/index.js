@@ -6,11 +6,13 @@ const { connection } = require('./config/db')
 const { UserRouter } = require('./controller/UserController')
 const { Authentication } = require('./middleware/Auth')
 const { DealerRouter } = require('./controller/DealersController')
+const { OemSpecRouter } = require('./controller/OemSpecController')
 const app=express()
 app.use(cors())
 app.use(express.json())
 app.use("/user",UserRouter)
 app.use("/dealer",DealerRouter)
+app.use("/oem",OemSpecRouter)
 
 app.get("/",(req,res)=>{
     res.send('hi there!')

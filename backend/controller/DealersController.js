@@ -57,7 +57,7 @@ DealerRouter.post("/add", upload.single('image'), Authentication, async (req, re
 
 DealerRouter.get("/", async (req, res) => {
     try {
-        let AllData = await DealearsModel.find()
+        let AllData = await DealearsModel.find({}).populate("oem_id");
         res.send(AllData)
     } catch (err) {
         res.send({ "msg": "Something went wrong ! Unable to get Cars", "err": err.message })

@@ -43,11 +43,11 @@ const navigate=useNavigate()
     .then((res)=>{
       console.log(res)
       if(res.data?.msg=="User Successfully Login"){
-        alert("User registerd")
+        alert("User Login Successfully")
         navigate("/")
         localStorage.setItem("usertoken",JSON.stringify(res.data.token))
       }else{
-        alert(res.data.err)
+        alert(res.data.msg)
       }
     }).catch(err=>console.log(err))
   }

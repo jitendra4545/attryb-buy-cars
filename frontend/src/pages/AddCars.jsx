@@ -79,57 +79,70 @@ const getSingleData=()=>{
 
 
     const handleData = () => {
-        setLoading(true)
-        const formData = new FormData()
-        formData.append("oem_id", oem_id)
-        formData.append("title", title)
-        formData.append("desc", Alldesc)
-        formData.append("price", price)
-        formData.append("km", km)
-        formData.append("major_scratch", major_scratch)
-        formData.append("original_paint", original_paint)
-        formData.append("accident", accident)
-        formData.append("image", image)
-        formData.append("prev_buyer", prev_buyer)
-        formData.append("registration_place", registration_place)
-
-console.log(formData)
-
-
-        axios.post(`http://localhost:8456/dealer/add`, formData,
-            {
-                headers: {
-                    'Authorization': `${token}`,
-                },
-            })
-            .then((res) => {
-                console.log(res)
-                setLoading(false)
-                navigate('/')
-            }).catch((err) => {
-                console.log(err)
-                setLoading(false)
-            })
-
-    }
-
-
-    const handleUpdate=()=>{
-        setLoading(true)
-        const payload={
-            title,desc:Alldesc,price,km,accident,prev_buyer,registration_place
+        if(registration_place==""||prev_buyer==""||accident==""||original_paint==""||major_scratch==""||km==""||price==""||title==""||oem_id==""){
+            alert("fill all the fields")
+        }else{
+            setLoading(true)
+            const formData = new FormData()
+            formData.append("oem_id", oem_id)
+            formData.append("title", title)
+            formData.append("desc", Alldesc)
+            formData.append("price", price)
+            formData.append("km", km)
+            formData.append("major_scratch", major_scratch)
+            formData.append("original_paint", original_paint)
+            formData.append("accident", accident)
+            formData.append("image", image)
+            formData.append("prev_buyer", prev_buyer)
+            formData.append("registration_place", registration_place)
+    
+    console.log(formData)
+    
+    
+            axios.post(`http://localhost:8456/dealer/add`, formData,
+                {
+                    headers: {
+                        'Authorization': `${token}`,
+                    },
+                })
+                .then((res) => {
+                    if(res.data?.msg=="Car Added Successfully"){
+                        navigate("/")
+                        alert(res.data.msg)
+                    }else{
+                        alert(res.data?.msg)
+                    }
+                    
+                }).catch((err) => {
+                    console.log(err)
+                    setLoading(false)
+                })
+    
         }
-        axios.patch(`http://localhost:8456/dealer/${id}`,payload)
-        .then((res)=>{
-            console.log(res)
-            setLoading(false)
-            navigate("/")
-        }).catch((err)=>{
-            console.log(err)
-            setLoading(false)
-        })
+    
+    
+        
+      
     }
-
+const UpdateData=()=>{
+    setLoading(true)
+    const payload={
+        title,desc:Alldesc,price,km,accident,prev_buyer,registration_place
+    }
+    axios.patch(`http://localhost:8456/dealer/${id}`,payload,{
+        headers: {
+            'Authorization': `${token}`,
+        }
+    }) .then((res)=>{
+        console.log(res)
+        setLoading(false)
+navigate('/')
+    alert("Data Updated Successfully")
+    }).catch((err)=>{
+        console.log(err)
+        setLoading(false)
+    })
+}
 
 
 
@@ -275,7 +288,7 @@ console.log(Alldesc)
                     <Box mt='20px' textAlign={'center'}>
                     {
                         id? 
-<Button bg={'blue'} color={'white'} _hover={{ bg: "blue" }} w='100%' onClick={handleUpdate} >UPDATE DATA</Button>
+<Button bg={'blue'} color={'white'} _hover={{ bg: "blue" }} w='100%' onClick={UpdateData} >UPDATE DATA</Button>
 :
 <Button bg={'blue'} color={'white'} _hover={{ bg: "blue" }} w='100%' onClick={handleData} >ADD DATA</Button>
                     }    

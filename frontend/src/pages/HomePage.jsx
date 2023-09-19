@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export const HomePage = () => {
+  const token = JSON.parse(localStorage.getItem("usertoken"))
   const [Loading, setLoading] = useState(false)
   const [Data, setData] = useState([])
   const [filter, setFilter] = useState("");
@@ -30,11 +31,16 @@ export const HomePage = () => {
   const handleDelete = (id) => {
     console.log(id)
     setLoading(true)
-    axios.delete(`http://localhost:8456/dealer/${id}`)
+    axios.delete(`http://localhost:8456/dealer/${id}`,{
+      headers: {
+        'Authorization': `${token}`,
+    }
+    })
       .then((res) => {
         console.log(res.data)
         getCarData()
         setLoading(false)
+        alert(`Data deleted Successfully`)
       }).catch((err) => {
         setLoading(false)
         console.log(err)
@@ -88,7 +94,7 @@ export const HomePage = () => {
           </Select>
         </Box>
         {
-          Data.length<=0 && <Heading textAlign={'center'}>No Data Found</Heading>
+          Data.length<=0 && <Heading textAlign={'center'}>No Data Available</Heading>
          }
          
         <Box display={'grid'} gap='4' gridTemplateColumns={{ base: "repeat(1,1fr)", md: "repeat(2,1fr)", lg: "repeat(3,1fr)" }}>

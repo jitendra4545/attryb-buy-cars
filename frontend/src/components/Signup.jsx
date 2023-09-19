@@ -47,9 +47,12 @@ const handleReg=()=>{
       alert("User registerd")
       navigate("/login")
     }else{
-      alert(res.data.err)
+      alert(res.data.msg,res.data?.err)
     }
-  }).catch(err=>console.log(err))
+  }).catch((err)=>{
+  
+    console.log(err)
+  })
   
 }
 

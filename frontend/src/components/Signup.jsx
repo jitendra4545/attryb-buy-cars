@@ -36,7 +36,9 @@ const [password, setPassword] = useState("")
 
 const navigate=useNavigate()
 const handleReg=()=>{
-
+if(name==""||email==""||password==""){
+alert("Fill all the fields")
+}else{
   const payload={
     name,email,password
   }
@@ -53,6 +55,8 @@ const handleReg=()=>{
   
     console.log(err)
   })
+}
+  
   
 }
 

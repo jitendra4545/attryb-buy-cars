@@ -96,7 +96,7 @@ const getSingleData=()=>{
             formData.append("prev_buyer", prev_buyer)
             formData.append("registration_place", registration_place)
     
-    console.log(formData)
+   
     
     
             axios.post(`http://localhost:8456/dealer/add`, formData,

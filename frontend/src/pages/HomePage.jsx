@@ -102,7 +102,7 @@ export const HomePage = () => {
         
          
           {   Data?.map((el, i) => {
-              return <Box boxShadow={'lg'} p='20px' border={'1px solid blue'} key={i}>
+              return <Box bg='white' boxShadow={'lg'} p='20px' borderRadius={'20px'} key={i}>
                 <Box display={'flex'} gap={'2'}>
                   <Box>
                     <Image w='400px' h='200px' src={el.oem_id?.image} />
@@ -134,7 +134,7 @@ export const HomePage = () => {
                 <Box mt={'10px'} display={'flex'} gap='2'>
                   <Button w='100%' onClick={() => navigate(`/edit/${el._id}`)} color={'white'} bg={'green'}>EDIT</Button>
                   <Button w='100%' onClick={() => handleDelete(el._id)} color={'white'} bg={'red'} >DELETE</Button>
-                  <Button w='100%' color={'white'} bg={'blue'}>VIEW</Button>
+                  <Button w='100%' onClick={() => navigate(`/single/${el._id}`)} color={'white'} bg={'blue'}>VIEW</Button>
                 </Box>
               </Box>
             })

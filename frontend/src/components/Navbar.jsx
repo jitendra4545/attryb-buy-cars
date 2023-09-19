@@ -8,6 +8,7 @@ export const Navbar = () => {
 
   const handleLogout=()=>{
        localStorage.removeItem("usertoken")
+       alert("User Logout Successfully")
        window.location.reload()
   }
 

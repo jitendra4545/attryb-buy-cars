@@ -36,20 +36,27 @@ const navigate=useNavigate()
 
 
   const handleLogin=()=>{
-    const payload={
-      email,password
-    }
-    axios.post(`http://localhost:8456/user/login`,payload)
-    .then((res)=>{
-      console.log(res)
-      if(res.data?.msg=="User Successfully Login"){
-        alert("User Login Successfully")
-        navigate("/")
-        localStorage.setItem("usertoken",JSON.stringify(res.data.token))
-      }else{
-        alert(res.data.msg)
+
+    if(email==""||password==""){
+      alert("fil all the fields")
+    }else{
+      const payload={
+        email,password
       }
-    }).catch(err=>console.log(err))
+      axios.post(`http://localhost:8456/user/login`,payload)
+      .then((res)=>{
+        console.log(res)
+        if(res.data?.msg=="User Successfully Login"){
+          alert("User Login Successfully")
+          navigate("/")
+          localStorage.setItem("usertoken",JSON.stringify(res.data.token))
+        }else{
+          alert(res.data.msg)
+        }
+      }).catch(err=>console.log(err))
+    }
+
+    
   }
   
   

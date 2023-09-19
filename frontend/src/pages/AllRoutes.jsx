@@ -5,6 +5,7 @@ import Login from '../components/Login'
 import Signup from '../components/Signup'
 import { AddCars } from './AddCars'
 import { PrivateRoute } from './PrivateRoute'
+import { SingleCar } from './SingleCar'
 
 
 export const AllRoutes = () => {
@@ -21,6 +22,14 @@ export const AllRoutes = () => {
       <Route path='/edit/:id' element={<PrivateRoute>
         <AddCars />
       </PrivateRoute>} />
+
+      <Route path='/single/:id' element={
+        <PrivateRoute>
+          <SingleCar />
+        </PrivateRoute>
+
+      } />
+
     </Routes>
   )
 }

@@ -31,17 +31,18 @@ const upload = multer({ storage });
 
 DealerRouter.post("/add", upload.single('image'), Authentication, async (req, res) => {
 
-    let { registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title } = req.body
+    let { registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title,oem_id } = req.body
     let id = req.body.UserId
 
-    console.log(id)
+    
 
+    console.log("hgghghhg",req.file,"body",req)
 
     try {
         cloudinary.uploader.upload(req.file.path, async (err, result) => {
-            console.log(result)
+            console.log("ghghfg",result)
             if (result) {
-                let newdata = new DealearsModel({ image: result.url, registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title, user_id: id })
+                let newdata = new DealearsModel({ image: result.url, registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title, user_id: id,oem_id })
                 await newdata.save()
                 res.send({ "msg": "Car Added Successfully" })
             }

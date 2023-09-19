@@ -8,13 +8,14 @@ const Authentication=(req,res,next)=>{
     
    if(token){
     jwt.verify(token, 'jitendra', function(err, decoded) {
-        
+         
         if(decoded){
-            console.log(decoded) 
+           
             req.body.UserId=decoded.UserId
+           
             next()
         }else{
-            res.send({"msg":"Invalid Token !"})
+            res.send({"msg":"Invalid Token !",err})
         }
        
       });

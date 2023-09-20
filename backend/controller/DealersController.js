@@ -9,6 +9,7 @@ const multer = require('multer');
 const { cloudinary } = require("../utils/Cloudinary");
 const DealerRouter = express.Router()
 const app=express()
+const fs=require('fs')
 
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
@@ -33,8 +34,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage });
 
-// app.use(express.static(__dirname + '/tmp'));
-// app.use('./tmp', express.static('tmp'));
+
 
 
 
@@ -46,22 +46,23 @@ DealerRouter.post("/add", upload.single('image'), Authentication, async (req, re
     let id = req.body.UserId
 
     
+//  let data=fs.readFileSync('temp/'+req.file.filename)
+    // console.log("hgghghhg",req.file,"body")
 
-    console.log("hgghghhg",req.file,"body",req)
 
     try {
 
         if(registration_place==""||prev_buyer==""||accident==""||original_paint==""||major_scratch==""||km==""||price==""||title==""||oem_id==""){
             alert("fill all the fields")
         }else{
-            cloudinary.uploader.upload(req.file.path, async (err, result) => {
-                console.log("ghghfg",result)
-                if (result) {
-                    let newdata = new DealearsModel({ image: result.url, registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title, user_id: id,oem_id })
+            // cloudinary.uploader.upload(req.file.path, async (err, result) => {
+            //     console.log("ghghfg",result)
+            //     if (result) { req.file
+                    let newdata = new DealearsModel({  registration_place, prev_buyer, accident, original_paint, major_scratch, km, price, desc, title, user_id: id,oem_id })
                     await newdata.save()
                     res.send({ "msg": "Car Added Successfully" })
-                }
-            })
+                // }
+            // })
         }
 
         

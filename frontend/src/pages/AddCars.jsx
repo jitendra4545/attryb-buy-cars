@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Navbar } from '../components/Navbar'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Loader } from '../components/Loader'
 // import { Form } from 'react-router-dom'
 
 export const AddCars = () => {
@@ -32,7 +33,7 @@ const [s_data,setS_data]=useState([])
 
     const getData = () => {
         setLoading(true)
-        axios.get(`http://localhost:8456/oem?q=`)
+        axios.get(`https://adorable-puce-gloves.cyclic.cloud/oem?q=`)
             .then((res) => {
                 console.log(res)
                 setAllcar(res.data)
@@ -65,7 +66,7 @@ const [s_data,setS_data]=useState([])
 
 const getSingleData=()=>{
     setLoading(true)
-    axios.get(`http://localhost:8456/dealer/${id}`)
+    axios.get(`https://adorable-puce-gloves.cyclic.cloud/dealer/${id}`)
     .then((res)=>{
         console.log(res.data)
         setLoading(false)
@@ -99,7 +100,7 @@ const getSingleData=()=>{
    
     
     
-            axios.post(`http://localhost:8456/dealer/add`, formData,
+            axios.post(`https://adorable-puce-gloves.cyclic.cloud/dealer/add`, formData,
                 {
                     headers: {
                         'Authorization': `${token}`,
@@ -129,7 +130,7 @@ const UpdateData=()=>{
     const payload={
         title,desc:Alldesc,price,km,accident,prev_buyer,registration_place
     }
-    axios.patch(`http://localhost:8456/dealer/${id}`,payload,{
+    axios.patch(`https://adorable-puce-gloves.cyclic.cloud/dealer/${id}`,payload,{
         headers: {
             'Authorization': `${token}`,
         }
@@ -153,13 +154,16 @@ navigate('/')
     }
 
 console.log(Alldesc)
-
+if(Loading){
+    return <Loader/>
+}
 
 
     return (
         <Box>
             <Navbar />
             <Box p='10px'>
+               
                 <Heading textAlign={'center'} p='10px' color={'blue'} fontSize={'xl'}>ADD CAR DETAILS</Heading>
                 <Box boxShadow={'xl'} bg={'cyan.100'} borderRadius={'15px'} p={{ base: "20px", md: "30px", lg: "45px" }} w={{ base: "70%", md: "50%", lg: "40%" }} m='auto'>
 

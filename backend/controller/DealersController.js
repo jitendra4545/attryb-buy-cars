@@ -8,19 +8,33 @@ const { Authentication } = require("../middleware/Auth")
 const multer = require('multer');
 const { cloudinary } = require("../utils/Cloudinary");
 const DealerRouter = express.Router()
+const app=express()
+
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, "uploads/");
+//     },
+//     filename: function (req, file, cb) {
+//         const ext = path.extname(file.originalname);
+//         const filename = file.fieldname + "-" + Date.now() + ext;
+//         cb(null, filename);
+//     },
+// });
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "uploads/");
-    },
-    filename: function (req, file, cb) {
-        const ext = path.extname(file.originalname);
-        const filename = file.fieldname + "-" + Date.now() + ext;
-        cb(null, filename);
-    },
-});
+  destination: function (req, file, cb) {
+    cb(null, 'tmp/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+
 const upload = multer({storage:storage });
 
+// app.use(express.static(__dirname + '/tmp'));
+// app.use('./tmp', express.static('tmp'));
 
 
 

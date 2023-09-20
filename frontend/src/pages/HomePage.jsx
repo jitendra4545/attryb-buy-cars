@@ -3,6 +3,7 @@ import { Navbar } from '../components/Navbar'
 import { Box, Button, Heading, Image, Select, Text } from '@chakra-ui/react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Loader } from '../components/Loader'
 
 export const HomePage = () => {
   const token = JSON.parse(localStorage.getItem("usertoken"))
@@ -13,7 +14,7 @@ export const HomePage = () => {
   const navigate = useNavigate()
   const getCarData = () => {
     setLoading(true)
-    axios.get(`http://localhost:8456/dealer?filter=${filter}&order=${order}`)
+    axios.get(`https://adorable-puce-gloves.cyclic.cloud/dealer?filter=${filter}&order=${order}`)
       .then((res) => {
         setLoading(false)
         setData(res.data)
@@ -31,7 +32,7 @@ export const HomePage = () => {
   const handleDelete = (id) => {
     console.log(id)
     setLoading(true)
-    axios.delete(`http://localhost:8456/dealer/${id}`,{
+    axios.delete(`https://adorable-puce-gloves.cyclic.cloud/dealer/${id}`,{
       headers: {
         'Authorization': `${token}`,
     }
@@ -64,12 +65,15 @@ export const HomePage = () => {
     setOrder(e.target.value)
   }
 
-
+if(Loading){
+  return <Loader/>
+}
 
   return (
     <Box>
       <Navbar />
       <Box w={{ base: "95%", md: "90%", lg: "90%" }} m='auto'>
+       
         <Box p={'20px'} display={'flex'} gap='4'   >
           <Select onChange={handlePrice} w={{ base: "90%", md: "85%", lg: "60%" }} m='auto'>
             <option value="">Sort By Price</option>

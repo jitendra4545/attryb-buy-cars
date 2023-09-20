@@ -42,7 +42,7 @@ alert("Fill all the fields")
   const payload={
     name,email,password
   }
-  axios.post(`http://localhost:8456/user/signup`,payload)
+  axios.post(`https://adorable-puce-gloves.cyclic.cloud/user/signup`,payload)
   .then((res)=>{
     console.log(res)
     if(res.data?.msg=="User Register Successfully"){

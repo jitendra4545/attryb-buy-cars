@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import axios from 'axios'
+import { Loader } from '../components/Loader'
 
 export const SingleCar = () => {
   const [Loading,setLoading]=useState(false)
@@ -11,7 +12,7 @@ export const SingleCar = () => {
   const id=params.id
     const getSingleData=()=>{
         setLoading(true)
-        axios.get(`http://localhost:8456/dealer/${id}`)
+        axios.get(`https://adorable-puce-gloves.cyclic.cloud/dealer/${id}`)
         .then((res)=>{
             console.log(res.data)
             setLoading(false)
@@ -33,6 +34,9 @@ export const SingleCar = () => {
     <Box>
         <Navbar/>
         <Box w={{base:"95%",md:"93%",lg:"90%"}} margin={'auto'} >
+            {
+                Loading && <Loader/>
+            }
             <Box>
                 <Heading>Company Details</Heading>
                 <Image src={data[0]?.oem_id.image} />

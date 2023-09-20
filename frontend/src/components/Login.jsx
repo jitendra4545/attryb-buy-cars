@@ -43,7 +43,7 @@ const navigate=useNavigate()
       const payload={
         email,password
       }
-      axios.post(`http://localhost:8456/user/login`,payload)
+      axios.post(`https://adorable-puce-gloves.cyclic.cloud/user/login`,payload)
       .then((res)=>{
         console.log(res)
         if(res.data?.msg=="User Successfully Login"){

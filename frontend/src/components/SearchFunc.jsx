@@ -9,7 +9,7 @@ export const SearchFunc = () => {
     console.log(query)
 
     const getData=async()=>{
- axios.get(`http://localhost:8456/oem?q=${query}`)
+ axios.get(`https://adorable-puce-gloves.cyclic.cloud/oem?q=${query}`)
  .then((res)=>{
     console.log(res)
     setCars(res.data)

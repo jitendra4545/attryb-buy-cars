@@ -29,6 +29,8 @@ export const HomePage = () => {
     getCarData()
   }, [order, filter])
 
+  console.log("dssdasadasd",order,filter)
+
   const handleDelete = (id) => {
     console.log(id)
     setLoading(true)
@@ -109,13 +111,10 @@ if(Loading){
               return <Box bg='white' boxShadow={'lg'} p='20px' borderRadius={'20px'} key={i}>
                 <Box display={'flex'} gap={'2'}>
                   <Box>
-                    <Image w='400px' h='200px' src={el.oem_id?.image} />
+                    <Image w='100%'  src={el.oem_id?.image} />
                     <Text textAlign={'center'} fontWeight={'bold'} color='blue'>New</Text>
                   </Box>
-                  <Box>
-                    <Image w='400px' h='200px' src={el.image} />
-                    <Text textAlign={'center'} fontWeight={'bold'} color='blue'>After Use</Text>
-                  </Box>
+                 
 
 
                 </Box>

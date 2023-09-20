@@ -6,7 +6,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 export const SearchFunc = () => {
      const [Cars,setCars]=useState([])
     const [query, setquery] = useState("")
-    console.log(query)
+    console.log("sercah",Cars)
 
     const getData=async()=>{
  axios.get(`https://adorable-puce-gloves.cyclic.cloud/oem?q=${query}`)
@@ -27,7 +27,7 @@ export const SearchFunc = () => {
     <div>
          <Box display={'flex'}>
     <Input onChange={(e)=>setquery(e.target.value)} placeholder='Enter Car Model With Year' />
-    <Button><AiOutlineSearch/></Button>
+      
     </Box>
     </div>
   )

@@ -10,7 +10,7 @@ export const AddCars = () => {
     const [Loading, setLoading] = useState(false)
     const [AllCar, setAllcar] = useState([])
     const [oem_id, setoem_id] = useState("")
-    const [image, setimage] = useState("")
+    // const [image, setimage] = useState("")
     const [title, settitle] = useState("")
     const [desc, setdesc] = useState("")
     const [Alldesc, setAlldesc] = useState([])
@@ -93,14 +93,18 @@ const getSingleData=()=>{
             formData.append("major_scratch", major_scratch)
             formData.append("original_paint", original_paint)
             formData.append("accident", accident)
-            formData.append("image", image)
+          
             formData.append("prev_buyer", prev_buyer)
             formData.append("registration_place", registration_place)
     
-   
+          const payload={
+            oem_id,title,desc:Alldesc,price,km,major_scratch,original_paint,accident,prev_buyer,registration_place
+          }
     
     
-            axios.post(`https://adorable-puce-gloves.cyclic.cloud/dealer/add`, formData,
+
+
+            axios.post(`https://adorable-puce-gloves.cyclic.cloud/dealer/add`, payload,
                 {
                     headers: {
                         'Authorization': `${token}`,
@@ -191,7 +195,7 @@ if(Loading){
                                 </Select>
                             </FormControl>
                     }
-                    {
+                    {/* {
                         id ?
                             <FormControl>
                                 <FormLabel >Upload Image</FormLabel>
@@ -202,7 +206,7 @@ if(Loading){
                                 <FormLabel >Upload Image</FormLabel>
                                 <Input border={'1px solid blue'} type='file' onChange={(e) => setimage(e.target.files[0])} />
                             </FormControl>
-                    }
+                    } */}
                     <FormControl>
                         <FormLabel >Title</FormLabel>
                         <Input value={title} border={'1px solid blue'} type='text' onChange={(e) => settitle(e.target.value)} />
